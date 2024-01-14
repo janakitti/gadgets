@@ -3,16 +3,20 @@ import { create } from "zustand";
 interface GalleryState {
   selectedGadget: string | null;
   primaryColor: string;
+  canvasUrl: string | null;
 
   setSelectedGadget: (id: string) => void;
   clearSelectedGadget: () => void;
 
   setPrimaryColor: (color: string) => void;
+
+  setCanvasUrl: (canvas: string) => void;
 }
 
 export const useGalleryStore = create<GalleryState>((set) => ({
   selectedGadget: null,
   primaryColor: "#f4e9ff",
+  canvasUrl: null,
 
   setSelectedGadget: (id: string) =>
     set(() => ({
@@ -24,5 +28,10 @@ export const useGalleryStore = create<GalleryState>((set) => ({
   setPrimaryColor: (color: string) =>
     set(() => ({
       primaryColor: color,
+    })),
+
+  setCanvasUrl: (canvas: string) =>
+    set(() => ({
+      canvasUrl: canvas,
     })),
 }));
