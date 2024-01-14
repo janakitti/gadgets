@@ -4,6 +4,10 @@ interface ICubeProps {
   primaryColor: string;
 }
 
+interface ICubeEditorProps {
+  primaryColor: string;
+}
+
 export const Cube = ({ primaryColor }: ICubeProps) => {
   return (
     <div style={{ height: "4em", width: "4em", background: primaryColor }}>
@@ -12,10 +16,7 @@ export const Cube = ({ primaryColor }: ICubeProps) => {
   );
 };
 
-export const CubeEditor = () => {
-  const { primaryColor } = useGalleryStore((state) => ({
-    primaryColor: state.primaryColor,
-  }));
+export const CubeEditor = ({ primaryColor }: ICubeEditorProps) => {
   return (
     <div>
       <Cube primaryColor={primaryColor} />

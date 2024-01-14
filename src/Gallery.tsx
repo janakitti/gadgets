@@ -4,21 +4,27 @@ import { useEffect, useState } from "react";
 import { GadgetLibrary } from "./GadgetLibrary";
 import { useGalleryStore } from "./Store";
 import { gadgetFactory } from "./GadgetFactory";
+import Tinkerer from "./Tinkerer";
 
 function Gallery() {
   const [gadgets, setGadgets] = useState<JSX.Element[]>([]);
 
-  const { primaryColor, setPrimaryColor } = useGalleryStore((state) => ({
-    primaryColor: state.primaryColor,
-    setPrimaryColor: state.setPrimaryColor,
-  }));
+  const { primaryColor, setPrimaryColor, setSelectedGadget } = useGalleryStore(
+    (state) => ({
+      primaryColor: state.primaryColor,
+      setPrimaryColor: state.setPrimaryColor,
+      setSelectedGadget: state.setSelectedGadget,
+    })
+  );
 
   useEffect(() => {
     const gadgetCards = GadgetLibrary.map((g) => (
-      <GadgetCard>{gadgetFactory(g.id, primaryColor)}</GadgetCard>
+      <GadgetCard onClick={() => setSelectedGadget(g.id)}>
+        {gadgetFactory(g.id, primaryColor)}
+      </GadgetCard>
     ));
     setGadgets(gadgetCards);
-  }, [primaryColor]);
+  }, [primaryColor, setSelectedGadget]);
 
   return (
     <Grid>
@@ -33,7 +39,9 @@ function Gallery() {
           {gadgets}
         </SimpleGrid>
       </Grid.Col>
-      <Grid.Col span={4}></Grid.Col>
+      <Grid.Col span={4}>
+        <Tinkerer />
+      </Grid.Col>
     </Grid>
   );
 }

@@ -1,19 +1,15 @@
-import { Card, Image, Text } from "@mantine/core";
+import { Card, Text } from "@mantine/core";
 import React from "react";
 
 interface IGadgetCardProps {
-  //   display: JSX.Element;
-  //   primaryColor: string;
+  onClick: () => void;
   children: React.ReactElement;
 }
 
-const GadgetCard = ({ children }: IGadgetCardProps) => {
+const GadgetCard = ({ onClick, children }: IGadgetCardProps) => {
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <Card.Section>
-        {/* <Image src="temp_img.png" width={40} alt="alt" /> */}
-        {children}
-      </Card.Section>
+    <Card shadow="sm" padding="lg" radius="md" withBorder onClick={onClick}>
+      <Card.Section>{children}</Card.Section>
       <Text size="sm" c="dimmed">
         Alarm Clock
       </Text>
