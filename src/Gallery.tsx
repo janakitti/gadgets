@@ -19,7 +19,7 @@ function Gallery() {
 
   useEffect(() => {
     const gadgetCards = GadgetLibrary.map((g) => (
-      <GadgetCard onClick={() => setSelectedGadget(g.id)}>
+      <GadgetCard key={g.id} onClick={() => setSelectedGadget(g.id)}>
         {gadgetFactory(g.id, primaryColor)}
       </GadgetCard>
     ));
