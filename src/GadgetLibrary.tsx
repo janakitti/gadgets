@@ -1,3 +1,9 @@
-import { CubeGadget } from "./gadgets/Cube";
+interface LibraryEntry {
+  id: string;
+}
 
-export const GadgetLibrary = [CubeGadget, CubeGadget, CubeGadget];
+export const GadgetLibrary: LibraryEntry[] = [
+  {
+    id: "cube",
+  },
+];
