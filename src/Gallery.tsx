@@ -1,4 +1,4 @@
-import { Grid, SimpleGrid, Title } from "@mantine/core";
+import { ColorInput, Grid, SimpleGrid, Title } from "@mantine/core";
 import GadgetCard from "./GadgetCard";
 import { useEffect, useState } from "react";
 import { GadgetLibrary } from "./GadgetLibrary";
@@ -8,8 +8,9 @@ import { gadgetFactory } from "./GadgetFactory";
 function Gallery() {
   const [gadgets, setGadgets] = useState<JSX.Element[]>([]);
 
-  const { primaryColor } = useGalleryStore((state) => ({
+  const { primaryColor, setPrimaryColor } = useGalleryStore((state) => ({
     primaryColor: state.primaryColor,
+    setPrimaryColor: state.setPrimaryColor,
   }));
 
   useEffect(() => {
@@ -23,6 +24,11 @@ function Gallery() {
     <Grid>
       <Grid.Col span={8}>
         <Title order={1}>gadgeteer</Title>
+        <ColorInput
+          format="hex"
+          swatches={["#2e2e2e", "#868e96", "#fa5252"]}
+          onChange={(color) => setPrimaryColor(color)}
+        />
         <SimpleGrid spacing="xl" cols={5}>
           {gadgets}
         </SimpleGrid>
