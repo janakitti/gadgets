@@ -27,8 +27,8 @@ function Gallery() {
   }, [primaryColor, setSelectedGadget]);
 
   return (
-    <Grid>
-      <Grid.Col span={8}>
+    <Grid style={{ height: "100vh" }}>
+      <Grid.Col span={8} style={{ height: "100%" }}>
         <Title order={1}>gadgeteer</Title>
         <ColorInput
           format="hex"
@@ -39,7 +39,7 @@ function Gallery() {
           {gadgets}
         </SimpleGrid>
       </Grid.Col>
-      <Grid.Col span={4}>
+      <Grid.Col span={4} style={{ height: "100%" }}>
         <Tinkerer />
       </Grid.Col>
     </Grid>

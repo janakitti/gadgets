@@ -68,7 +68,7 @@ export const CubeEditor = ({ primaryColor }: ICubeEditorProps) => {
 
   return (
     <div>
-      <Canvas gl={{ preserveDrawingBuffer: true }}>
+      <Canvas gl={{ preserveDrawingBuffer: true }} style={{ height: "50vh" }}>
         <DownloadableCube ref={childRef} primaryColor={primaryColor} />
       </Canvas>
       Controls

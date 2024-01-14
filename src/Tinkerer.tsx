@@ -9,9 +9,18 @@ const Tinkerer = () => {
   }));
 
   return (
-    <Paper>
+    <Paper style={{ height: "100%" }}>
       <Title>Tinkerer</Title>
-      {selectedGadget && editorFactory(selectedGadget, primaryColor)}
+      <Paper
+        shadow="sm"
+        px="xs"
+        mb="ms"
+        mx="ms"
+        mt="ms"
+        // style={{ height: "40%" }}
+      >
+        {selectedGadget && editorFactory(selectedGadget, primaryColor)}
+      </Paper>
     </Paper>
   );
 };
