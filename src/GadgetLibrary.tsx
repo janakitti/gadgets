@@ -6,4 +6,73 @@ export const GadgetLibrary: LibraryEntry[] = [
   {
     id: "cube",
   },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
+  {
+    id: "cube",
+  },
 ];

@@ -1,6 +1,7 @@
 import { Button } from "@mantine/core";
 import { Canvas, useThree } from "@react-three/fiber";
 import { forwardRef, useImperativeHandle, useRef } from "react";
+import { useInView } from "react-intersection-observer";
 
 const FILENAME = "cube";
 
@@ -36,10 +37,18 @@ const CubeInternals = ({ primaryColor }: ICubeProps) => {
 };
 
 export const Cube = ({ primaryColor }: ICubeProps) => {
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
   return (
-    <Canvas>
-      <CubeInternals primaryColor={primaryColor} />
-    </Canvas>
+    <div ref={ref}>
+      {inView && (
+        <Canvas>
+          <CubeInternals primaryColor={primaryColor} />
+        </Canvas>
+      )}
+    </div>
   );
 };
 
