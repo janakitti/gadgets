@@ -1,4 +1,4 @@
-import { useGalleryStore } from "../Store";
+import { Canvas } from "@react-three/fiber";
 
 interface ICubeProps {
   primaryColor: string;
@@ -10,8 +10,21 @@ interface ICubeEditorProps {
 
 export const Cube = ({ primaryColor }: ICubeProps) => {
   return (
-    <div style={{ height: "4em", width: "4em", background: primaryColor }}>
-      Hello {primaryColor} Cube
+    <div>
+      <Canvas>
+        <ambientLight intensity={Math.PI / 2} />
+        <spotLight
+          position={[10, 10, 10]}
+          angle={0.15}
+          penumbra={1}
+          decay={0}
+          intensity={Math.PI}
+        />
+        <mesh scale={2} rotation={[Math.PI / 2, 1, 1]}>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial color={primaryColor} />
+        </mesh>
+      </Canvas>
     </div>
   );
 };
@@ -24,8 +37,3 @@ export const CubeEditor = ({ primaryColor }: ICubeEditorProps) => {
     </div>
   );
 };
-
-// export const CubeGadget = {
-//   gadget: <Cube />,
-//   editor: <CubeEditor />,
-// };
