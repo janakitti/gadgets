@@ -1,4 +1,5 @@
 import { Button, Slider } from "@mantine/core";
+import { Text } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -69,6 +70,20 @@ const ClockInternals = ({ primaryColor, rotation }: IClockProps) => {
         <group scale={1} rotation={[Math.PI / 2, 0, 0]}>
           <mesh>
             <cylinderGeometry args={[1, 1, 0.6]} />
+            <meshStandardMaterial color={"#FFFFF"} />
+          </mesh>
+        </group>
+
+        <group scale={1} rotation={[Math.PI / 2, 0, 0]}>
+          <mesh>
+            <cylinderGeometry args={[1.001, 1.001, 0.6, 32, 1, true]} />
+            <meshStandardMaterial color={primaryColor} />
+          </mesh>
+        </group>
+
+        <group scale={1} position={[0, 0, -0.301]} rotation={[0, Math.PI, 0]}>
+          <mesh>
+            <circleGeometry args={[1]} />
             <meshStandardMaterial color={primaryColor} />
           </mesh>
         </group>
@@ -101,17 +116,17 @@ const ClockInternals = ({ primaryColor, rotation }: IClockProps) => {
           </mesh>
         </group> */}
 
-        <group scale={1} position={[0, -3, 0]} rotation={[0, 0, 0]}>
+        <group scale={1} position={[0, 0, 0.325]} rotation={[0, 0, 0]}>
           <mesh>
-            <latheGeometry args={[points]} />
-            <meshStandardMaterial color={primaryColor} />
+            <sphereGeometry args={[0.1]} />
+            <meshStandardMaterial color={"#000000"} />
           </mesh>
         </group>
 
         <group scale={1} position={[0, 0.3, 0.3]} rotation={[0, 0, 0]}>
           <mesh>
             <capsuleGeometry args={[0.06, 0.6]} />
-            <meshStandardMaterial color={primaryColor} />
+            <meshStandardMaterial color={"#000000"} />
           </mesh>
         </group>
         <group
@@ -135,7 +150,7 @@ const ClockInternals = ({ primaryColor, rotation }: IClockProps) => {
         >
           <mesh>
             <capsuleGeometry args={[0.06, 0.4]} />
-            <meshStandardMaterial color={primaryColor} />
+            <meshStandardMaterial color={"#000000"} />
           </mesh>
         </group>
       </group>
