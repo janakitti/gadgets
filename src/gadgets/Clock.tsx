@@ -2,7 +2,7 @@ import { Button, Slider } from "@mantine/core";
 import { Canvas, useThree } from "@react-three/fiber";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { Euler, Matrix4, Quaternion, Vector3 } from "three";
+import { Euler, Matrix4, Quaternion, Vector2, Vector3 } from "three";
 
 const FILENAME = "clock";
 
@@ -50,6 +50,11 @@ const ClockInternals = ({ primaryColor, rotation }: IClockProps) => {
   if (!rotation) {
     rotation = 0;
   }
+
+  const points = [];
+  for (let i = 0; i < 10; i++) {
+    points.push(new Vector2(Math.sin(i * 0.2) * 10 + 5, (i - 5) * 2));
+  }
   return (
     <>
       <ambientLight intensity={Math.PI / 2} />
@@ -60,22 +65,50 @@ const ClockInternals = ({ primaryColor, rotation }: IClockProps) => {
         decay={0}
         intensity={Math.PI}
       />
-      <group rotation={[0, 0, 0]}>
+      <group rotation={[0, rotation, 0]}>
         <group scale={1} rotation={[Math.PI / 2, 0, 0]}>
           <mesh>
-            <cylinderGeometry args={[1, 1, 0.4]} />
+            <cylinderGeometry args={[1, 1, 0.6]} />
             <meshStandardMaterial color={primaryColor} />
           </mesh>
         </group>
 
-        <group scale={1} position={[0, 0, 0.5]} rotation={[0, 0, 0]}>
+        <group scale={1} position={[0, 0, 0.3]} rotation={[0, 0, 0]}>
           <mesh>
-            <torusGeometry args={[1, 0.1]} />
+            <torusGeometry args={[0.9, 0.1]} />
             <meshStandardMaterial color={primaryColor} />
           </mesh>
         </group>
 
-        <group scale={1} position={[0, 0.3, 0.4]} rotation={[0, 0, 0]}>
+        <group scale={1} position={[0, 0, -0.3]} rotation={[0, 0, 0]}>
+          <mesh>
+            <torusGeometry args={[0.9, 0.1]} />
+            <meshStandardMaterial color={primaryColor} />
+          </mesh>
+        </group>
+
+        {/* <group scale={1} position={[-0.4, -0.7, 0.1]} rotation={[0, 0, 0]}>
+          <mesh>
+            <capsuleGeometry args={[0.12, 0.6]} />
+            <meshStandardMaterial color={primaryColor} />
+          </mesh>
+        </group>
+   
+        <group scale={1} position={[0.4, -0.7, 0.1]} rotation={[0, 0, 0]}>
+          <mesh>
+            <capsuleGeometry args={[0.12, 0.6]} />
+            <meshStandardMaterial color={primaryColor} />
+          </mesh>
+        </group> */}
+
+        <group scale={1} position={[0, -3, 0]} rotation={[0, 0, 0]}>
+          <mesh>
+            <latheGeometry args={[points]} />
+            <meshStandardMaterial color={primaryColor} />
+          </mesh>
+        </group>
+
+        <group scale={1} position={[0, 0.3, 0.3]} rotation={[0, 0, 0]}>
           <mesh>
             <capsuleGeometry args={[0.06, 0.6]} />
             <meshStandardMaterial color={primaryColor} />
@@ -85,7 +118,7 @@ const ClockInternals = ({ primaryColor, rotation }: IClockProps) => {
           scale={1}
           position={
             rotateAboutAnchor(
-              new Vector3(0, 0.3, 0.4),
+              new Vector3(0, 0.3, 0.3),
               new Vector3(0, 0, 0),
               new Vector3(0, 0, 0),
               rotation
