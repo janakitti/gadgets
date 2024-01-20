@@ -15,7 +15,7 @@ interface GalleryState {
 
 export const useGalleryStore = create<GalleryState>((set) => ({
   selectedGadget: null,
-  primaryColor: "#f4e9ff",
+  primaryColor: "#fa5252",
   canvasUrl: null,
 
   setSelectedGadget: (id: string) =>

@@ -52,6 +52,7 @@ function Gallery() {
           <Grid.Col span={3}>
             <ColorInput
               format="hex"
+              defaultValue={primaryColor}
               swatches={["#2e2e2e", "#868e96", "#fa5252"]}
               onChange={(color) => setPrimaryColor(color)}
               mt="md"
