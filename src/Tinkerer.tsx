@@ -1,4 +1,4 @@
-import { Paper, Title } from "@mantine/core";
+import { Paper, Text, Title } from "@mantine/core";
 import { useGalleryStore } from "./Store";
 import { editorFactory } from "./GadgetFactory";
 
@@ -10,7 +10,6 @@ const Tinkerer = () => {
 
   return (
     <Paper style={{ height: "100%" }}>
-      <Title>Tinkerer</Title>
       <Paper
         shadow="sm"
         p="lg"
@@ -19,6 +18,7 @@ const Tinkerer = () => {
         mt="ms"
         // style={{ height: "40%" }}
       >
+        <Text size="xl">Tinkerer</Text>
         {selectedGadget && editorFactory(selectedGadget, primaryColor)}
       </Paper>
     </Paper>
