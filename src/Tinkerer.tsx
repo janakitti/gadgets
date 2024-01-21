@@ -18,8 +18,13 @@ const Tinkerer = () => {
         mt="ms"
         // style={{ height: "40%" }}
       >
-        <Text size="xl">Tinkerer</Text>
-        {selectedGadget && editorFactory(selectedGadget, primaryColor)}
+        {selectedGadget && (
+          <>
+            <Text size="xl">{selectedGadget.name}</Text>
+            <Text size="md">{selectedGadget?.phoneticName}</Text>
+          </>
+        )}
+        {selectedGadget && editorFactory(selectedGadget.id, primaryColor)}
       </Paper>
     </Paper>
   );

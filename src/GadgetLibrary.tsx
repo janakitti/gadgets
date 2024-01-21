@@ -1,4 +1,4 @@
-interface LibraryEntry {
+export interface LibraryEntry {
   id: string;
   name: string;
   phoneticName: string;

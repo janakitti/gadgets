@@ -1,11 +1,12 @@
 import { create } from "zustand";
+import { LibraryEntry } from "./GadgetLibrary";
 
 interface GalleryState {
-  selectedGadget: string | null;
+  selectedGadget: LibraryEntry | null;
   primaryColor: string;
   canvasUrl: string | null;
 
-  setSelectedGadget: (id: string) => void;
+  setSelectedGadget: (gadget: LibraryEntry) => void;
   clearSelectedGadget: () => void;
 
   setPrimaryColor: (color: string) => void;
@@ -18,9 +19,9 @@ export const useGalleryStore = create<GalleryState>((set) => ({
   primaryColor: "#fa5252",
   canvasUrl: null,
 
-  setSelectedGadget: (id: string) =>
+  setSelectedGadget: (gadget: LibraryEntry) =>
     set(() => ({
-      selectedGadget: id,
+      selectedGadget: gadget,
     })),
 
   clearSelectedGadget: () => set(() => ({ selectedGadget: null })),
