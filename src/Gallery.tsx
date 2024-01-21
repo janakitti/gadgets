@@ -36,7 +36,7 @@ function Gallery() {
   return (
     <Grid style={{ height: "100vh" }}>
       <Grid.Col span={1} style={{ height: "100%" }}></Grid.Col>
-      <Grid.Col span={7} style={{ height: "100%" }}>
+      <Grid.Col span={7} px="lg" style={{ height: "100%" }}>
         <Title order={1} my="xl">
           gadgeteer
         </Title>
