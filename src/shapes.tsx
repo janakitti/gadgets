@@ -1,6 +1,7 @@
 import { Euler, Vector3 } from "three";
 
 interface ICylinderProps {
+  scale?: number;
   position?: Vector3;
   rotation?: number[];
   radiusTop?: number;
@@ -12,6 +13,7 @@ interface ICylinderProps {
 }
 
 export const Cylinder = ({
+  scale = 1,
   position = new Vector3(),
   rotation = [0, 0, 0],
   radiusTop = 1,
@@ -22,7 +24,7 @@ export const Cylinder = ({
   color = "#FFFFFF",
 }: ICylinderProps) => {
   return (
-    <group scale={1} position={position} rotation={new Euler(...rotation)}>
+    <group scale={scale} position={position} rotation={new Euler(...rotation)}>
       <mesh>
         <cylinderGeometry
           args={[
