@@ -13,7 +13,7 @@ const Tinkerer = () => {
       <Title>Tinkerer</Title>
       <Paper
         shadow="sm"
-        px="xs"
+        p="lg"
         mb="ms"
         mx="ms"
         mt="ms"
