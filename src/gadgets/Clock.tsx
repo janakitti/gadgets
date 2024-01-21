@@ -177,7 +177,6 @@ const militaryTimeToRotations = (time: string) => {
 
   const hourRotation = -(numericHour / 12) * 2 * Math.PI;
   const minuteRotation = -(numericMinute / 60) * 2 * Math.PI;
-  // console.log(numericMinute, minuteRotation);
   return { hourRotation, minuteRotation };
 };
 
@@ -186,6 +185,7 @@ export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
   const [rotation, setRotation] = useState(0);
   const [time, setTime] = useState("00:00");
 
+  const clockRotation = rotation * 2 * Math.PI;
   const { hourRotation, minuteRotation } = militaryTimeToRotations(time);
 
   return (
@@ -194,7 +194,7 @@ export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
         <DownloadableClock
           ref={childRef}
           primaryColor={primaryColor}
-          rotation={rotation}
+          rotation={clockRotation}
           hour={hourRotation}
           minute={minuteRotation}
         />
@@ -213,7 +213,7 @@ export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
         <Text size="sm">Rotation</Text>
         <Slider
           min={0}
-          max={10}
+          max={1}
           step={0.05}
           value={rotation}
           onChange={setRotation}
