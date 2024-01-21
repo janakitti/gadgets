@@ -190,7 +190,10 @@ export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
 
   return (
     <div>
-      <Canvas gl={{ preserveDrawingBuffer: true }} style={{ height: "50vh" }}>
+      <Canvas
+        gl={{ preserveDrawingBuffer: true }}
+        style={{ width: "100%", aspectRatio: "1" }}
+      >
         <DownloadableClock
           ref={childRef}
           primaryColor={primaryColor}
