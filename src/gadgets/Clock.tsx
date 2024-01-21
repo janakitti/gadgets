@@ -6,6 +6,7 @@ import { useInView } from "react-intersection-observer";
 import { Euler, Matrix4, Quaternion, Vector2, Vector3 } from "three";
 import { rotateAboutAnchor } from "../utils";
 import "../tinkerer.css";
+import { Cylinder } from "../shapes";
 
 const FILENAME = "clock";
 
@@ -65,19 +66,22 @@ const ClockInternals = ({
         intensity={Math.PI}
       />
       <group rotation={[0, rotation, 0]}>
-        <group scale={1} rotation={[Math.PI / 2, 0, 0]}>
-          <mesh>
-            <cylinderGeometry args={[1, 1, 0.6]} />
-            <meshStandardMaterial color={"#FFFFF"} />
-          </mesh>
-        </group>
+        <Cylinder
+          rotation={[Math.PI / 2, 0, 0]}
+          radiusTop={1}
+          radiusBottom={1}
+          height={0.6}
+          color={"#FFFFFF"}
+        />
 
-        <group scale={1} rotation={[Math.PI / 2, 0, 0]}>
-          <mesh>
-            <cylinderGeometry args={[1.001, 1.001, 0.6, 32, 1, true]} />
-            <meshStandardMaterial color={primaryColor} />
-          </mesh>
-        </group>
+        <Cylinder
+          rotation={[Math.PI / 2, 0, 0]}
+          radiusTop={1.001}
+          radiusBottom={1.001}
+          height={0.6}
+          isOpenEnded
+          color={primaryColor}
+        />
 
         <group scale={1} position={[0, 0, -0.301]} rotation={[0, Math.PI, 0]}>
           <mesh>
