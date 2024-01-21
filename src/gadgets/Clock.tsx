@@ -1,4 +1,5 @@
 import { Button, Slider } from "@mantine/core";
+import { TimeInput } from "@mantine/dates";
 import { Text } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
@@ -11,6 +12,8 @@ const FILENAME = "clock";
 interface IClockProps {
   primaryColor: string;
   rotation?: number;
+  hour?: number;
+  minute?: number;
 }
 
 interface IClockEditorProps {
@@ -21,16 +24,35 @@ interface IDownloadHandle {
   download: () => void;
 }
 
-const ClockInternals = ({ primaryColor, rotation }: IClockProps) => {
+const ClockInternals = ({
+  primaryColor,
+  rotation,
+  hour,
+  minute,
+}: IClockProps) => {
   if (!rotation) {
     rotation = 0;
   }
+  if (!hour) {
+    hour = 0;
+  }
+  if (!minute) {
+    minute = 0;
+  }
+  console.log(minute);
 
-  const { newPos, newRot } = rotateAboutAnchor(
-    new Vector3(0, 0.3, 0.4),
+  const { newPos: hourArmPos, newRot: hourArmRot } = rotateAboutAnchor(
+    new Vector3(0, 0.3, 0.3),
     new Vector3(0, 0, 0),
     new Vector3(0, 0, 0),
-    rotation
+    hour
+  );
+
+  const { newPos: minuteArmPos, newRot: minuteArmRot } = rotateAboutAnchor(
+    new Vector3(0, 0.3, 0.3),
+    new Vector3(0, 0, 0),
+    new Vector3(0, 0, 0),
+    minute
   );
   return (
     <>
@@ -85,13 +107,13 @@ const ClockInternals = ({ primaryColor, rotation }: IClockProps) => {
           </mesh>
         </group>
 
-        <group scale={1} position={[0, 0.3, 0.3]} rotation={[0, 0, 0]}>
+        <group scale={1} position={minuteArmPos} rotation={minuteArmRot}>
           <mesh>
             <capsuleGeometry args={[0.06, 0.6]} />
             <meshStandardMaterial color={"#000000"} />
           </mesh>
         </group>
-        <group scale={1} position={newPos} rotation={newRot}>
+        <group scale={1} position={hourArmPos} rotation={hourArmRot}>
           <mesh>
             <capsuleGeometry args={[0.06, 0.4]} />
             <meshStandardMaterial color={"#000000"} />
@@ -119,7 +141,7 @@ export const Clock = ({ primaryColor }: IClockProps) => {
 };
 
 const DownloadableClock = forwardRef(
-  ({ primaryColor, rotation }: IClockProps, ref) => {
+  ({ primaryColor, rotation, hour, minute }: IClockProps, ref) => {
     const gl = useThree((state) => state.gl);
 
     useImperativeHandle(ref, () => ({
@@ -136,13 +158,35 @@ const DownloadableClock = forwardRef(
       },
     }));
 
-    return <ClockInternals primaryColor={primaryColor} rotation={rotation} />;
+    return (
+      <ClockInternals
+        primaryColor={primaryColor}
+        rotation={rotation}
+        hour={hour}
+        minute={minute}
+      />
+    );
   }
 );
+
+const militaryTimeToRotations = (time: string) => {
+  const [hour, minute]: string[] = time.split(":");
+
+  const numericHour = Number(hour) % 12;
+  const numericMinute = Number(minute);
+
+  const hourRotation = -(numericHour / 12) * 2 * Math.PI;
+  const minuteRotation = -(numericMinute / 60) * 2 * Math.PI;
+  // console.log(numericMinute, minuteRotation);
+  return { hourRotation, minuteRotation };
+};
 
 export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
   const childRef = useRef<IDownloadHandle>();
   const [rotation, setRotation] = useState(0);
+  const [time, setTime] = useState("00:00");
+
+  const { hourRotation, minuteRotation } = militaryTimeToRotations(time);
 
   return (
     <div>
@@ -151,6 +195,8 @@ export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
           ref={childRef}
           primaryColor={primaryColor}
           rotation={rotation}
+          hour={hourRotation}
+          minute={minuteRotation}
         />
       </Canvas>
       <Button
@@ -168,6 +214,11 @@ export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
         step={0.05}
         value={rotation}
         onChange={setRotation}
+      />
+      <TimeInput
+        label="Time"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
       />
     </div>
   );
