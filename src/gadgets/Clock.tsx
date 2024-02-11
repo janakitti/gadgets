@@ -2,11 +2,11 @@ import { Button, Slider, Text } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
 import { Canvas, useThree } from "@react-three/fiber";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { useInView } from "react-intersection-observer";
 import { Euler, Matrix4, Quaternion, Vector2, Vector3 } from "three";
 import { rotateAboutAnchor } from "../utils";
 import "../tinkerer.css";
 import { Cylinder } from "../shapes";
+import ControlPanel from "../ControlPanel";
 
 const FILENAME = "clock";
 
@@ -121,10 +121,6 @@ const ClockInternals = ({
 };
 
 export const Clock = ({ primaryColor }: IClockProps) => {
-  const { ref, inView, entry } = useInView({
-    /* Optional options */
-    threshold: 0,
-  });
   return <ClockInternals primaryColor={primaryColor} />;
 };
 
@@ -191,22 +187,19 @@ export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
           minute={minuteRotation}
         />
       </Canvas>
-      <div className="control-panel">
-        <Button
-          radius="xl"
-          onClick={() => {
-            if (childRef && childRef.current) {
-              childRef.current.download();
-            }
-          }}
-        >
-          Download
-        </Button>
+
+      <ControlPanel
+        onClick={() => {
+          if (childRef && childRef.current) {
+            childRef.current.download();
+          }
+        }}
+      >
         <Text size="sm">Rotation</Text>
         <Slider
           min={0}
           max={1}
-          step={0.05}
+          step={0.001}
           value={rotation}
           onChange={setRotation}
         />
@@ -215,7 +208,7 @@ export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
           value={time}
           onChange={(e) => setTime(e.target.value)}
         />
-      </div>
+      </ControlPanel>
     </div>
   );
 };

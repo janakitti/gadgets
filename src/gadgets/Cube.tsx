@@ -1,7 +1,7 @@
-import { Button, Slider } from "@mantine/core";
+import { Button, Slider, Text } from "@mantine/core";
 import { Canvas, useThree } from "@react-three/fiber";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import ControlPanel from "../ControlPanel";
 
 const FILENAME = "cube";
 
@@ -33,10 +33,6 @@ const CubeInternals = ({ primaryColor, rotation }: ICubeProps) => {
 };
 
 export const Cube = ({ primaryColor }: ICubeProps) => {
-  const { ref, inView, entry } = useInView({
-    /* Optional options */
-    threshold: 0,
-  });
   return <CubeInternals primaryColor={primaryColor} />;
 };
 
@@ -76,22 +72,23 @@ export const CubeEditor = ({ primaryColor }: ICubeEditorProps) => {
           rotation={rotation}
         />
       </Canvas>
-      <Button
+
+      <ControlPanel
         onClick={() => {
           if (childRef && childRef.current) {
             childRef.current.download();
           }
         }}
       >
-        Download
-      </Button>
-      <Slider
-        min={0}
-        max={10}
-        step={0.05}
-        value={rotation}
-        onChange={setRotation}
-      />
+        <Text size="sm">Rotation</Text>
+        <Slider
+          min={0}
+          max={1}
+          step={0.001}
+          value={rotation}
+          onChange={setRotation}
+        />
+      </ControlPanel>
     </div>
   );
 };
