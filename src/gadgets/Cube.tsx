@@ -24,14 +24,6 @@ const CubeInternals = ({ primaryColor, rotation }: ICubeProps) => {
   }
   return (
     <>
-      <ambientLight intensity={Math.PI / 2} />
-      <spotLight
-        position={[10, 10, 10]}
-        angle={0.15}
-        penumbra={1}
-        decay={0}
-        intensity={Math.PI}
-      />
       <mesh scale={2} rotation={[Math.PI / 2, rotation, 1]}>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color={primaryColor} />
@@ -45,15 +37,7 @@ export const Cube = ({ primaryColor }: ICubeProps) => {
     /* Optional options */
     threshold: 0,
   });
-  return (
-    <div ref={ref}>
-      {inView && (
-        <Canvas>
-          <CubeInternals primaryColor={primaryColor} />
-        </Canvas>
-      )}
-    </div>
-  );
+  return <CubeInternals primaryColor={primaryColor} />;
 };
 
 const DownloadableCube = forwardRef(
@@ -85,6 +69,7 @@ export const CubeEditor = ({ primaryColor }: ICubeEditorProps) => {
   return (
     <div>
       <Canvas gl={{ preserveDrawingBuffer: true }} style={{ height: "50vh" }}>
+        <ambientLight intensity={Math.PI / 2} />
         <DownloadableCube
           ref={childRef}
           primaryColor={primaryColor}

@@ -57,14 +57,6 @@ const ClockInternals = ({
   );
   return (
     <>
-      <ambientLight intensity={Math.PI / 2} />
-      <spotLight
-        position={[10, 10, 10]}
-        angle={0.15}
-        penumbra={1}
-        decay={0}
-        intensity={Math.PI}
-      />
       <group rotation={[0, rotation, 0]}>
         <Cylinder
           rotation={[Math.PI / 2, 0, 0]}
@@ -133,15 +125,7 @@ export const Clock = ({ primaryColor }: IClockProps) => {
     /* Optional options */
     threshold: 0,
   });
-  return (
-    <div ref={ref}>
-      {inView && (
-        <Canvas>
-          <ClockInternals primaryColor={primaryColor} />
-        </Canvas>
-      )}
-    </div>
-  );
+  return <ClockInternals primaryColor={primaryColor} />;
 };
 
 const DownloadableClock = forwardRef(
@@ -198,6 +182,7 @@ export const ClockEditor = ({ primaryColor }: IClockEditorProps) => {
         gl={{ preserveDrawingBuffer: true }}
         style={{ width: "100%", aspectRatio: "1" }}
       >
+        <ambientLight intensity={Math.PI / 2} />
         <DownloadableClock
           ref={childRef}
           primaryColor={primaryColor}

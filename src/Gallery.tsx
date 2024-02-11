@@ -7,14 +7,88 @@ import {
   Title,
 } from "@mantine/core";
 import GadgetCard from "./GadgetCard";
-import { useEffect, useState } from "react";
-import { GadgetLibrary } from "./GadgetLibrary";
+import { MutableRefObject, createRef, useState } from "react";
 import { useGalleryStore } from "./Store";
 import { gadgetFactory } from "./GadgetFactory";
 import Tinkerer from "./Tinkerer";
+import { Canvas } from "@react-three/fiber";
+import { PerspectiveCamera, View } from "@react-three/drei";
 
 function Gallery() {
-  const [gadgets, setGadgets] = useState<JSX.Element[]>([]);
+  const [library, setLibrary] = useState<any[]>([
+    {
+      id: "cube",
+      name: "Cube",
+      phoneticName: "/kyo͞ob/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+    {
+      id: "clock",
+      name: "Clock",
+      phoneticName: "/kläk/",
+      ref: createRef() as MutableRefObject<HTMLDivElement>,
+    },
+  ]);
 
   const { primaryColor, setPrimaryColor, setSelectedGadget } = useGalleryStore(
     (state) => ({
@@ -24,14 +98,13 @@ function Gallery() {
     })
   );
 
-  useEffect(() => {
-    const gadgetCards = GadgetLibrary.map((g) => (
-      <GadgetCard key={g.id} name={g.name} onClick={() => setSelectedGadget(g)}>
-        {gadgetFactory(g.id, primaryColor)}
-      </GadgetCard>
+  const jsxObjects = () => {
+    return library.map((item, index) => (
+      <group key={item.id} position={[index * 10, 0, 0]}>
+        {gadgetFactory(item.id, primaryColor)}
+      </group>
     ));
-    setGadgets(gadgetCards);
-  }, [primaryColor, setSelectedGadget]);
+  };
 
   return (
     <Grid style={{ height: "100vh" }}>
@@ -61,9 +134,40 @@ function Gallery() {
           <Grid.Col span={9}></Grid.Col>
         </Grid>
         <Divider my="xl" />
-        <SimpleGrid spacing="xl" verticalSpacing="xl" cols={2}>
-          {gadgets}
+        <SimpleGrid spacing="xl" verticalSpacing="xl" cols={4}>
+          {library.map((item) => (
+            <GadgetCard
+              key={item.id}
+              name={item.name}
+              onClick={() => setSelectedGadget(item)}
+            >
+              <div
+                ref={item.ref}
+                style={{
+                  height: "10em",
+                  width: "100%",
+                }}
+              ></div>
+            </GadgetCard>
+          ))}
         </SimpleGrid>
+        <Canvas
+          style={{
+            position: "fixed",
+            left: "0",
+            bottom: "0",
+            zIndex: 1,
+            pointerEvents: "none",
+          }}
+        >
+          {library.map((item, index) => (
+            <View index={index} key={item.id} track={item.ref}>
+              <ambientLight intensity={Math.PI / 2} />
+              {jsxObjects()}
+              <PerspectiveCamera makeDefault position={[index * 10, 0, 6]} />
+            </View>
+          ))}
+        </Canvas>
       </Grid.Col>
       <Grid.Col span={3} style={{ height: "100%" }}>
         <Tinkerer />
