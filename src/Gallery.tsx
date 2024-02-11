@@ -90,13 +90,13 @@ function Gallery() {
     },
   ]);
 
-  const { primaryColor, setPrimaryColor, setSelectedGadget } = useGalleryStore(
-    (state) => ({
+  const { primaryColor, selectedGadget, setPrimaryColor, setSelectedGadget } =
+    useGalleryStore((state) => ({
       primaryColor: state.primaryColor,
+      selectedGadget: state.selectedGadget,
       setPrimaryColor: state.setPrimaryColor,
       setSelectedGadget: state.setSelectedGadget,
-    })
-  );
+    }));
 
   const jsxObjects = () => {
     return library.map((item, index) => (
@@ -170,7 +170,7 @@ function Gallery() {
         </Canvas>
       </Grid.Col>
       <Grid.Col span={3} style={{ height: "100%" }}>
-        <Tinkerer />
+        {selectedGadget && <Tinkerer />}
       </Grid.Col>
       <Grid.Col span={1} style={{ height: "100%" }}></Grid.Col>
     </Grid>
