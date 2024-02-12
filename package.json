@@ -6,6 +6,7 @@
     "@mantine/core": "^7.4.1",
     "@mantine/dates": "^7.4.2",
     "@mantine/hooks": "^7.4.1",
+    "@react-three/csg": "^3.2.0",
     "@react-three/drei": "^9.96.1",
     "@react-three/fiber": "^8.15.14",
     "@testing-library/jest-dom": "^5.17.0",
